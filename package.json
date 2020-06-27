@@ -1,0 +1,98 @@
+{
+  "name": "kekule-clj",
+  "version": "0.1.9",
+  "description": "A Kekule widget for Common Lisp Jupyter",
+  "keywords": [
+    "kekule",
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "widgets"
+  ],
+  "files": [
+     "lib/**",
+     "css/**",
+     "LICENSE.md"
+  ],
+  "homepage": "https://github.com/yitzchak/kekule-clj",
+  "bugs": {
+    "url": "https://github.com/yitzchak/kekule-clj/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Tarn W. Burton",
+    "email": "twburton@gmail.com"
+  },
+  "main": "lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yitzchak/kekule-clj#no-cursors"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts --fix",
+    "lint-check": "eslint . --ext .ts",
+    "prepack": "yarn run build",
+    "test": "yarn run test:firefox",
+    "test:chrome": "karma start --browsers=Chrome tests/karma.conf.js",
+    "test:debug": "karma start --browsers=Chrome --singleRun=false --debug=true tests/karma.conf.js",
+    "test:firefox": "karma start --browsers=Firefox tests/karma.conf.js",
+    "test:ie": "karma start --browsers=IE tests/karma.conf.js"
+  },
+  "dependencies": {
+    "@jupyter-widgets/base": "^3.0.0",
+    "kekule": "git://github.com/yitzchak/Kekule.js.git"
+  },
+  "devDependencies": {
+    "@phosphor/application": "^1.6.0",
+    "@phosphor/widgets": "^1.6.0",
+    "@types/expect.js": "^0.3.29",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.6",
+    "@types/webpack-env": "^1.13.6",
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
+    "@typescript-eslint/parser": "^3.2.0",
+    "css-loader": "^3.6.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "expect.js": "^0.3.1",
+    "file-loader": "^6.0.0",
+    "fs-extra": "^7.0.0",
+    "husky": "^4.2.5",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-typescript": "^3.0.13",
+    "lint-staged": "^10.2.2",
+    "mkdirp": "^0.5.1",
+    "mocha": "^5.2.0",
+    "prettier": "^2.0.5",
+    "rimraf": "^2.6.2",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^5.2.1",
+    "typescript": "~3.7.1",
+    "yarn-run-all": "^3.1.1"
+  },
+  "jupyterlab": {
+    "extension": "lib/plugin"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint . --ext .ts --fix"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}

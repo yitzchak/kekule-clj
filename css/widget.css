@@ -1,0 +1,12 @@
+.__________kekule_container {
+    height: 100%;
+    width: 100%;
+}
+
+.jupyter-widgets.kekule-widget {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    flex: 1 1 auto;
+}
+
