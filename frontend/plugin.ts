@@ -30,7 +30,7 @@ function activateWidgetExtension(
 
     exports: async () => {
       return {
-        ...await import(/* webpackChunkName: "kekule-clj" */ './diagram'),
+        ...await import(/* webpackChunkName: "kekule-clj" */ './widget'),
       }
     }
   });

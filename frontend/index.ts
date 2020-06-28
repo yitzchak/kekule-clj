@@ -1,2 +1,2 @@
 export * from './version';
-export * from './diagram';
+export * from './widget';

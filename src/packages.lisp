@@ -3,5 +3,6 @@
   (:export
     #:diagram
     #:format
+    #:composer
     #:object))
 
