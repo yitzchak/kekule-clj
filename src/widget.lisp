@@ -15,7 +15,7 @@
   ((data
      :accessor data
      :initarg :data
-     :initform :null
+     :initform "Untitled Document"
      :trait :json)
    (format-id
      :accessor format-id
