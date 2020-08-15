@@ -1,14 +1,22 @@
 (in-package :kekule)
 
 
-(defparameter +smiles-format+ "smi")
-(defparameter +kekule-json-format+ "Kekule-JSON")
-(defparameter +kekule-xml-format+ "Kekule-XML")
-(defparameter +mdl-mol-2000-format+ "mol")
-(defparameter +mdl-mol-3000-format+ "mol3k")
-(defparameter +mdl-structure-data-format+ "sd")
-(defparameter +mdl-reaction-2000-format+ "rxn")
-(defparameter +mdl-reaction-3000-format+ "rxn3k")
+(defparameter +smiles-format+ "smi"
+  "Simplified molecular-input line-entry system format tag")
+(defparameter +kekule-json-format+ "Kekule-JSON"
+  "Kekule native JSON format tag")
+(defparameter +kekule-xml-format+ "Kekule-XML"
+  "Kekule specific XML format tag")
+(defparameter +mdl-mol-2000-format+ "mol"
+  "MDL Molfile V2000 format tag")
+(defparameter +mdl-mol-3000-format+ "mol3k"
+  "MDL Molfile V3000 format tag")
+(defparameter +mdl-structure-data-format+ "sd"
+  "MDL Structure Data format tag")
+(defparameter +mdl-reaction-2000-format+ "rxn"
+  "MDL Reaction V2000 format tag")
+(defparameter +mdl-reaction-3000-format+ "rxn3k"
+  "MDL Reaction V3000 format tag")
 
 
 (defclass chem-widget (jupyter-widgets:dom-widget)
@@ -16,18 +24,23 @@
      :accessor data
      :initarg :data
      :initform "Untitled Document"
-     :trait :json)
+     :trait :json
+     :documentation "Data to be displayed by the widget.")
    (format-id
      :accessor format-id
      :initarg :format-id
      :initform +mdl-reaction-2000-format+
-     :trait :unicode))
+     :type string
+     :trait :unicode
+     :documentation "Format tag of data. Current allowed values are smi, Kekule-JSON, Kekuule-XML, mol, mol3k, sd, rxn and rxn3k."))
   (:metaclass jupyter-widgets:trait-metaclass)
+  (:documentation "Base widget used by the diagram and composer widgets.")
   (:default-initargs
     :%model-module +module-name+
     :%model-module-version +module-version+
     :%view-module +module-name+
-    :%view-module-version +module-version+))
+    :%view-module-version +module-version+
+    :layout (make-instance 'jupyter-widgets:layout :width "100%" :height "480px")))
 
 
 (defclass diagram (chem-widget)
@@ -35,30 +48,41 @@
      :accessor enable-toolbar
      :initarg :enable-toolbar
      :initform nil
-     :trait :bool)
+     :type boolean
+     :trait :bool
+     :documentation "Whether to show the toolbar or not.")
    (enable-direct-interaction
      :accessor enable-direct-interaction
      :initarg :enable-direct-interaction
      :initform t
-     :trait :bool)
+     :type boolean
+     :trait :bool
+     :documentation "Whether to allow interaction with the molecule or not.")
    (enable-edit
      :accessor enable-edit
      :initarg :enable-edit
      :initform t
-     :trait :bool)
+     :type boolean
+     :trait :bool
+     :documentation "Whether to allow a popup editor to be shown or not.")
    (tool-buttons
      :accessor tool-buttons
      :initarg :tool-buttons
+     :type list
      :initform (list "loadData" "saveData" "molDisplayType" "molHideHydrogens" "zoomIn" "zoomOut"
                      "rotateLeft" "rotateRight" "rotateX" "rotateY" "rotateZ" "reset" "openEditor"
-                     "config"))
+                     "config")
+     :trait :list
+     :documentation "A list of the names of buttons to show in the toolbar.")
    (resizable
      :accessor resizable
      :initarg :resizable
      :initform nil
-     :trait :bool))
+     :type boolean
+     :trait :bool
+     :documentation "Whether the diagram is resizable or not."))
   (:metaclass jupyter-widgets:trait-metaclass)
-  (:documentation "")
+  (:documentation "A widget that displays molecular data.")
   (:default-initargs
     :%model-name "KekuleDiagramModel"
     :%view-name "KekuleDiagramView"))
@@ -69,7 +93,7 @@
 (defclass composer (chem-widget)
   ()
   (:metaclass jupyter-widgets:trait-metaclass)
-  (:documentation "")
+  (:documentation "A widget that edits molecular data.")
   (:default-initargs
     :%model-name "KekuleComposerModel"
     :%view-name "KekuleComposerView"))
@@ -78,6 +102,7 @@
 
 
 (defun load-data (instance data format-id)
+  "Load molecular data into an existing widget."
   (jupyter-widgets:send-custom instance
                                (jupyter:json-new-obj
                                  ("do" "load_data")
@@ -86,6 +111,7 @@
 
 
 (defun load-file (instance path)
+  "Load molecular data from a file into an existing widget."
   (jupyter-widgets:send-custom instance
                                (jupyter:json-new-obj
                                  ("do" "load_file")
@@ -93,6 +119,7 @@
 
 
 (defun load-url (instance url)
+  "Load molecular data from a url into an existing widget."
   (jupyter-widgets:send-custom instance
                                (jupyter:json-new-obj
                                  ("do" "load_url")
