@@ -19,6 +19,11 @@ Kekule.Atom.prototype.defineProp('annotation', {
 	'serializable': true
 });
 
+Kekule.Molecule.prototype.defineProp('annotation', {
+  'dataType': 'string',
+	'serializable': true
+});
+
 class KekuleModel extends DOMWidgetModel {
   defaults() {
     return {

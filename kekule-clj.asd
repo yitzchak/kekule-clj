@@ -1,6 +1,6 @@
 (asdf:defsystem #:kekule-clj
   :description "A Kekule widget for Common Lisp Jupyter"
-  :version "0.2.0"
+  :version "0.2.1"
   :author "Tarn W. Burton"
   :license "MIT"
   :depends-on
