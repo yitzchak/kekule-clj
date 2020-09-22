@@ -56,6 +56,9 @@ export class KekuleView extends DOMWidgetView {
   handle_custom_message(content: any): void {
     if (this.kekule_obj) {
       switch (content.do) {
+        case 'fit':
+          this.fit();
+          break;
         case 'load_data':
           this.loadFromData(content.data, content.format_id);
           break;
@@ -68,6 +71,8 @@ export class KekuleView extends DOMWidgetView {
       }
     }
   }
+
+  fit(): void {}
 
   loadFromData(data: any, format_id: string): void {
     let obj = null;
@@ -235,6 +240,22 @@ export class KekuleComposerView extends KekuleView {
 
   initialize(parameters: any): void {
     super.initialize(parameters);
+  }
+
+  fit(): void {
+    var chemEditor = this.kekule_obj.getEditor();
+    var objBox = chemEditor.getObjectsContainerBox(chemEditor.getChemSpace().getChildren());
+    var visualBox = chemEditor.getVisibleClientScreenBox();
+    if (objBox && visualBox)
+    {
+      var sx = (visualBox.x2 - visualBox.x1) / (objBox.x2 - objBox.x1);
+      var sy = (visualBox.y2 - visualBox.y1) / (objBox.y2 - objBox.y1);
+      var ratio = Math.min(sx, sy) - 1;
+      if (ratio > 0) {
+        chemEditor.setZoom(chemEditor.getCurrZoom() * ratio);
+      }
+      chemEditor.scrollClientToObject(chemEditor.getChemSpace().getChildren());
+    }
   }
 
   render() {

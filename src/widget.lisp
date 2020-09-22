@@ -101,6 +101,13 @@
 (jupyter-widgets:register-widget composer)
 
 
+(defun fit (instance)
+  "Fit view to current structures."
+  (jupyter-widgets:send-custom instance
+                               (jupyter:json-new-obj
+                                 ("do" "fit"))))
+
+
 (defun load-data (instance data format-id)
   "Load molecular data into an existing widget."
   (jupyter-widgets:send-custom instance

@@ -7,6 +7,7 @@
     #:enable-direct-interaction
     #:enable-edit
     #:enable-toolbar
+    #:fit
     #:format-id
     #:+kekule-json-format+
     #:+kekule-xml-format+
