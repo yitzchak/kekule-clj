@@ -35,7 +35,7 @@ function fit_editor (chemEditor: any): void {
   }
 }
 
-var Fit = Kekule.Class.create(Kekule.ChemWidget.ActionOnDisplayer,
+var Fit = Kekule.Class.create(Kekule.Editor.ActionOnEditor,
 {
 	CLASS_NAME: 'Fit',
 	HTML_CLASSNAME: "K-Chem-ResetZoom",
