@@ -24,6 +24,29 @@ Kekule.Molecule.prototype.defineProp('annotation', {
   'serializable': true
 });
 
+function fit_editor (chemEditor: any): void {
+  var objBox = chemEditor.getObjectsContainerBox(chemEditor.getChemSpace().getChildren());
+  var visualBox = chemEditor.getVisibleClientScreenBox();
+  if (objBox && visualBox) {
+    var sx = (visualBox.x2 - visualBox.x1) / (objBox.x2 - objBox.x1);
+    var sy = (visualBox.y2 - visualBox.y1) / (objBox.y2 - objBox.y1);
+    chemEditor.setZoom(Math.max(chemEditor.getCurrZoom() * Math.min(sx, sy) - .25, 1));
+    chemEditor.scrollClientToObject(chemEditor.getChemSpace().getChildren());
+  }
+}
+
+var Fit = Kekule.Class.create(Kekule.ChemWidget.ActionOnDisplayer,
+{
+	CLASS_NAME: 'Fit',
+	HTML_CLASSNAME: "K-Chem-ResetZoom",
+	doExecute: function() {
+	   fit_editor(this.getEditor());
+	},
+	hint: "Fit"
+});
+
+Kekule.ActionManager.registerNamedActionClass("fit", Fit, Kekule.Editor.ChemSpaceEditor)
+
 Kekule.Editor.Composer.prototype.getZoomButtonNames = function() {
   return [
     Kekule.ChemWidget.ComponentWidgetNames.zoomIn,
@@ -255,15 +278,7 @@ export class KekuleComposerView extends KekuleView {
   }
 
   fit(): void {
-    var chemEditor = this.kekule_obj.getEditor();
-    var objBox = chemEditor.getObjectsContainerBox(chemEditor.getChemSpace().getChildren());
-    var visualBox = chemEditor.getVisibleClientScreenBox();
-    if (objBox && visualBox) {
-      var sx = (visualBox.x2 - visualBox.x1) / (objBox.x2 - objBox.x1);
-      var sy = (visualBox.y2 - visualBox.y1) / (objBox.y2 - objBox.y1);
-      chemEditor.setZoom(Math.max(chemEditor.getCurrZoom() * Math.min(sx, sy) - .25, 1));
-      chemEditor.scrollClientToObject(chemEditor.getChemSpace().getChildren());
-    }
+    fit_editor(this.kekule_obj.getEditor());
   }
 
   render() {
@@ -283,12 +298,7 @@ export class KekuleComposerView extends KekuleView {
 	Kekule.ChemWidget.ComponentWidgetNames.paste,
 	Kekule.ChemWidget.ComponentWidgetNames.zoomIn,
 	Kekule.ChemWidget.ComponentWidgetNames.zoomOut,
-	{
-          "name": "fit",
-          "htmlClass": 'K-Chem-ResetZoom',
-          "#execute": this.fit.bind(this),
-	  "hint": "Fit"
-	},
+	"fit",
 	Kekule.ChemWidget.ComponentWidgetNames.config,
 	Kekule.ChemWidget.ComponentWidgetNames.objInspector
       ]);
