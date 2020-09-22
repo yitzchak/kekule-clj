@@ -16,13 +16,24 @@ String.prototype.toJSON = undefined; // Undo the lunacy of the Kekule polyfill.
 
 Kekule.Atom.prototype.defineProp('annotation', {
   'dataType': 'string',
-	'serializable': true
+  'serializable': true
 });
 
 Kekule.Molecule.prototype.defineProp('annotation', {
   'dataType': 'string',
-	'serializable': true
+  'serializable': true
 });
+
+Kekule.Editor.Composer.prototype.getZoomButtonNames = function() {
+  return [
+    Kekule.ChemWidget.ComponentWidgetNames.zoomIn,
+    Kekule.ChemWidget.ComponentWidgetNames.zoomOut,
+    Kekule.ChemWidget.ComponentWidgetNames.reset,
+    Kekule.ChemWidget.ComponentWidgetNames.resetZoom,
+    "fit"
+  ];
+}
+
 
 class KekuleModel extends DOMWidgetModel {
   defaults() {
@@ -235,6 +246,7 @@ export class KekuleComposerModel extends KekuleModel {
   }
 }
 
+
 export class KekuleComposerView extends KekuleView {
   timeout: any = null;
 
@@ -246,14 +258,10 @@ export class KekuleComposerView extends KekuleView {
     var chemEditor = this.kekule_obj.getEditor();
     var objBox = chemEditor.getObjectsContainerBox(chemEditor.getChemSpace().getChildren());
     var visualBox = chemEditor.getVisibleClientScreenBox();
-    if (objBox && visualBox)
-    {
+    if (objBox && visualBox) {
       var sx = (visualBox.x2 - visualBox.x1) / (objBox.x2 - objBox.x1);
       var sy = (visualBox.y2 - visualBox.y1) / (objBox.y2 - objBox.y1);
-      var ratio = Math.min(sx, sy) - 1;
-      if (ratio > 0) {
-        chemEditor.setZoom(chemEditor.getCurrZoom() * ratio);
-      }
+      chemEditor.setZoom(Math.max(chemEditor.getCurrZoom() * Math.min(sx, sy) - .25, 1));
       chemEditor.scrollClientToObject(chemEditor.getChemSpace().getChildren());
     }
   }
@@ -264,6 +272,26 @@ export class KekuleComposerView extends KekuleView {
     this.displayed.then(() => {
       this.kekule_obj = new Kekule.Editor.Composer(this.kekule_container);
       this.kekule_obj.setPredefinedSetting('fullFunc');
+      this.kekule_obj.setCommonToolButtons([
+	Kekule.ChemWidget.ComponentWidgetNames.newDoc,
+	Kekule.ChemWidget.ComponentWidgetNames.loadData,
+	Kekule.ChemWidget.ComponentWidgetNames.saveData,
+	Kekule.ChemWidget.ComponentWidgetNames.undo,
+	Kekule.ChemWidget.ComponentWidgetNames.redo,
+	Kekule.ChemWidget.ComponentWidgetNames.copy,
+	Kekule.ChemWidget.ComponentWidgetNames.cut,
+	Kekule.ChemWidget.ComponentWidgetNames.paste,
+	Kekule.ChemWidget.ComponentWidgetNames.zoomIn,
+	Kekule.ChemWidget.ComponentWidgetNames.zoomOut,
+	{
+          "name": "fit",
+          "htmlClass": 'K-Chem-ResetZoom',
+          "#execute": this.fit.bind(this),
+	  "hint": "Fit"
+	},
+	Kekule.ChemWidget.ComponentWidgetNames.config,
+	Kekule.ChemWidget.ComponentWidgetNames.objInspector
+      ]);
 
       this.kekule_obj.addEventListener('editObjsChanged', () => {
         if (!this.timeout) {
