@@ -1,11 +1,13 @@
 .kekule-container {
-    height: 100%;
-    width: 100%;
+    position: absolute !important;
+    x: 0;
+    y: 0;
 }
 
 .kekule-widget {
-    width: 600px;
+    width: 100%;
     height: 400px;
+    position: relative;
     overflow: hidden;
 }
 

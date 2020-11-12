@@ -151,7 +151,7 @@ export class KekuleView extends DOMWidgetView {
     this.el.classList.add('kekule-widget');
 
     this.kekule_container = document.createElement('div');
-    this.kekule_container.classList.add('kekule-widget');
+    this.kekule_container.classList.add('kekule-container');
     this.el.appendChild(this.kekule_container);
   }
 
