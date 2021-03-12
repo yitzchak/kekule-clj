@@ -104,31 +104,31 @@
 (defun fit (instance)
   "Fit view to current structures."
   (jupyter-widgets:send-custom instance
-                               (jupyter:json-new-obj
-                                 ("do" "fit"))))
+                               `(:object-plist
+                                 "do" "fit")))
 
 
 (defun load-data (instance data format-id)
   "Load molecular data into an existing widget."
   (jupyter-widgets:send-custom instance
-                               (jupyter:json-new-obj
-                                 ("do" "load_data")
-                                 ("data" data)
-                                 ("format_id" format-id))))
+                               `(:object-plist
+                                 "do" "load_data"
+                                 "data" ,data
+                                 "format_id" ,format-id)))
 
 
 (defun load-file (instance path)
   "Load molecular data from a file into an existing widget."
   (jupyter-widgets:send-custom instance
-                               (jupyter:json-new-obj
-                                 ("do" "load_file")
-                                 ("file" file))))
+                               `(:object-plist
+                                 "do" "load_file"
+                                 "file" ,file)))
 
 
 (defun load-url (instance url)
   "Load molecular data from a url into an existing widget."
   (jupyter-widgets:send-custom instance
-                               (jupyter:json-new-obj
-                                 ("do" "load_url")
-                                 ("url" url))))
+                               `(:object-plist
+                                 "do" "load_url"
+                                 "url" ,url)))
   
