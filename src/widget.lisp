@@ -87,8 +87,6 @@
     :%model-name "KekuleDiagramModel"
     :%view-name "KekuleDiagramView"))
 
-(jupyter-widgets:register-widget diagram)
-
 
 (defclass composer (chem-widget)
   ()
@@ -97,8 +95,6 @@
   (:default-initargs
     :%model-name "KekuleComposerModel"
     :%view-name "KekuleComposerView"))
-
-(jupyter-widgets:register-widget composer)
 
 
 (defun fit (instance)

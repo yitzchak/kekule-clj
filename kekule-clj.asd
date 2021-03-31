@@ -11,4 +11,5 @@
       :components
         ((:file "packages")
          (:file "version")
-         (:file "widget")))))
+         (:file "widget")
+         (:file "register-widgets")))))
