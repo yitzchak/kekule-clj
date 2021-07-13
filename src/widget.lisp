@@ -19,7 +19,7 @@
   "MDL Reaction V3000 format tag")
 
 
-(defclass chem-widget (jupyter-widgets:dom-widget)
+(jupyter/widgets:defwidget chem-widget (jupyter/widgets:dom-widget)
   ((data
      :accessor data
      :initarg :data
@@ -33,17 +33,16 @@
      :type string
      :trait :unicode
      :documentation "Format tag of data. Current allowed values are smi, Kekule-JSON, Kekuule-XML, mol, mol3k, sd, rxn and rxn3k."))
-  (:metaclass jupyter-widgets:trait-metaclass)
   (:documentation "Base widget used by the diagram and composer widgets.")
   (:default-initargs
     :%model-module +module-name+
     :%model-module-version +module-version+
     :%view-module +module-name+
     :%view-module-version +module-version+
-    :layout (make-instance 'jupyter-widgets:layout :width "100%" :height "480px")))
+    :layout (make-instance 'jupyter/widgets:layout :width "100%" :height "480px")))
 
 
-(defclass diagram (chem-widget)
+(jupyter/widgets:defwidget diagram (chem-widget)
   ((enable-toolbar
      :accessor enable-toolbar
      :initarg :enable-toolbar
@@ -81,16 +80,14 @@
      :type boolean
      :trait :bool
      :documentation "Whether the diagram is resizable or not."))
-  (:metaclass jupyter-widgets:trait-metaclass)
   (:documentation "A widget that displays molecular data.")
   (:default-initargs
     :%model-name "KekuleDiagramModel"
     :%view-name "KekuleDiagramView"))
 
 
-(defclass composer (chem-widget)
+(jupyter/widgets:defwidget composer (chem-widget)
   ()
-  (:metaclass jupyter-widgets:trait-metaclass)
   (:documentation "A widget that edits molecular data.")
   (:default-initargs
     :%model-name "KekuleComposerModel"
@@ -99,14 +96,14 @@
 
 (defun fit (instance)
   "Fit view to current structures."
-  (jupyter-widgets:send-custom instance
+  (jupyter/widgets:send-custom instance
                                `(:object-plist
                                  "do" "fit")))
 
 
 (defun load-data (instance data format-id)
   "Load molecular data into an existing widget."
-  (jupyter-widgets:send-custom instance
+  (jupyter/widgets:send-custom instance
                                `(:object-plist
                                  "do" "load_data"
                                  "data" ,data
@@ -115,7 +112,7 @@
 
 (defun load-file (instance path)
   "Load molecular data from a file into an existing widget."
-  (jupyter-widgets:send-custom instance
+  (jupyter/widgets:send-custom instance
                                `(:object-plist
                                  "do" "load_file"
                                  "file" ,file)))
@@ -123,7 +120,7 @@
 
 (defun load-url (instance url)
   "Load molecular data from a url into an existing widget."
-  (jupyter-widgets:send-custom instance
+  (jupyter/widgets:send-custom instance
                                `(:object-plist
                                  "do" "load_url"
                                  "url" ,url)))
