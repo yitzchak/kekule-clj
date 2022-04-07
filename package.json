@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^4.0.0",
-    "kekule": "git://github.com/yitzchak/Kekule.js.git"
+    "kekule": "https://github.com/yitzchak/Kekule.js.git"
   },
   "devDependencies": {
     "@phosphor/application": "^1.7.3",
