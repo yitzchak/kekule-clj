@@ -37,7 +37,7 @@
     "prepack": "yarn run build"
   },
   "dependencies": {
-    "@jupyter-widgets/base": "^4.0.0",
+    "@jupyter-widgets/base": "^6.0.1",
     "kekule": "https://github.com/yitzchak/Kekule.js.git"
   },
   "devDependencies": {
