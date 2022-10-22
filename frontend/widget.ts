@@ -170,8 +170,8 @@ export class KekuleView extends DOMWidgetView {
     this.loadData();
   }
 
-  processPhosphorMessage(msg: any): void {
-    super.processPhosphorMessage(msg);
+  processLuminoMessage(msg: any): void {
+    super.processLuminoMessage(msg);
     if ((msg.type === 'resize' || msg.type === 'after-show') && this.kekule_obj) {
       this.resize();
     }

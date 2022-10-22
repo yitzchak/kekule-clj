@@ -1,6 +1,6 @@
 {
   "name": "kekule-clj",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A Kekule widget for Common Lisp Jupyter",
   "keywords": [
     "kekule",
