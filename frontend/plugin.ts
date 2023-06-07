@@ -1,6 +1,6 @@
-import { Application, IPlugin } from '@phosphor/application';
+import { Application, IPlugin } from '@lumino/application';
 
-import { Widget } from '@phosphor/widgets';
+import { Widget } from '@lumino/widgets';
 
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
@@ -30,7 +30,7 @@ function activateWidgetExtension(
 
     exports: async () => {
       return {
-        ...await import(/* webpackChunkName: "kekule-clj" */ './widget'),
+        ...await import('./widget'),
       }
     }
   });
